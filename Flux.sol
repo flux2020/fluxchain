@@ -128,8 +128,22 @@ contract ERC20 is IERC20, Ownable {
   }
   function transfer(address to, uint256 value) public returns (bool) {
     _transfer(msg.sender, to, value);
-    return true;
+
+   uint codeLength;
+   bytes memory empty = hex"000000000";
+
+   assembly {
+    // Retrieve the size of the code on target address, this needs assembly.
+    codeLength := extcodesize(to)
   }
+
+  if (codeLength > 0) {
+    ERC223ReceivingContract receiver = ERC223ReceivingContract(to);
+    receiver.tokenFallback(msg.sender, value, empty);
+    }
+  return true;
+  }
+
   //ERC223
   function transfer(address to, uint256 value, bytes data) external returns (bool) {
     require(transfer(to, value));
@@ -160,6 +174,18 @@ contract ERC20 is IERC20, Ownable {
     require(from != address(0));
     _allowed[from][msg.sender] = _allowed[from][msg.sender].sub(value);
     _transfer(from, to, value);
+    uint codeLength;
+   bytes memory empty = hex"000000000";
+
+   assembly {
+    // Retrieve the size of the code on target address, this needs assembly.
+    codeLength := extcodesize(to)
+  }
+
+  if (codeLength > 0) {
+    ERC223ReceivingContract receiver = ERC223ReceivingContract(to);
+    receiver.tokenFallback(msg.sender, value, empty);
+    }
     return true;
   }
   function increaseAllowance(address spender, uint256 addedValue) public returns (bool) {
