@@ -171,9 +171,11 @@ contract ERC20 is IERC20, Ownable {
   function transferFrom(address from, address to, uint256 value) public returns (bool) {
     require(value <= _allowed[from][msg.sender]);
     require(!frozenAccount[from]);
+    require(!frozenAccount[to]);
     require(from != address(0));
     _allowed[from][msg.sender] = _allowed[from][msg.sender].sub(value);
     _transfer(from, to, value);
+    
     uint codeLength;
    bytes memory empty = hex"000000000";
 
@@ -206,6 +208,7 @@ contract ERC20 is IERC20, Ownable {
     require(value <= _balances[from]);
     require(to != address(0));
     require(!frozenAccount[msg.sender]);
+    require(!frozenAccount[to]);
     _balances[from] = _balances[from].sub(value);
     _balances[to] = _balances[to].add(value);
     emit Transfer(from, to, value);
