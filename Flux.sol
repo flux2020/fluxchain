@@ -36,8 +36,7 @@ library SafeMath {
   }
 }
 
-library Roles {
-    
+library Roles {    
   struct Role {
     mapping (address => bool) bearer;
   }
