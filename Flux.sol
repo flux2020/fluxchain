@@ -145,7 +145,7 @@ contract ERC20 is IERC20, Ownable {
 
   //ERC223
   function transfer(address to, uint256 value, bytes data) external returns (bool) {
-    require(transfer(to, value));
+    _transfer(msg.sender, to, value);
 
    uint codeLength;
 
