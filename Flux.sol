@@ -185,7 +185,7 @@ contract ERC20 is IERC20, Ownable {
 
   if (codeLength > 0) {
     ERC223ReceivingContract receiver = ERC223ReceivingContract(to);
-    receiver.tokenFallback(msg.sender, value, empty);
+    receiver.tokenFallback(from, value, empty);
     }/
     return true;
   }
