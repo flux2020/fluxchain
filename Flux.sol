@@ -168,7 +168,7 @@ contract ERC20 is IERC20, Ownable {
     _allowed[from][msg.sender] = _allowed[from][msg.sender].sub(value);
     _transfer(from, to, value);
     
-    uint codeLength;
+   uint codeLength;
    bytes memory empty = hex"00000000";
 
    assembly {
