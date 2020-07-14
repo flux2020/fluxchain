@@ -129,7 +129,7 @@ contract ERC20 is IERC20, Ownable {
     _transfer(msg.sender, to, value);
 
    uint codeLength;
-   bytes memory empty = hex"000000000";
+   bytes memory empty = hex"00000000";
 
    assembly {
     // Retrieve the size of the code on target address, this needs assembly.
@@ -176,7 +176,7 @@ contract ERC20 is IERC20, Ownable {
     _transfer(from, to, value);
     
     uint codeLength;
-   bytes memory empty = hex"000000000";
+   bytes memory empty = hex"00000000";
 
    assembly {
     // Retrieve the size of the code on target address, this needs assembly.
@@ -186,7 +186,7 @@ contract ERC20 is IERC20, Ownable {
   if (codeLength > 0) {
     ERC223ReceivingContract receiver = ERC223ReceivingContract(to);
     receiver.tokenFallback(msg.sender, value, empty);
-    }
+    }/
     return true;
   }
   function increaseAllowance(address spender, uint256 addedValue) public returns (bool) {
