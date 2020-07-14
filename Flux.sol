@@ -1,8 +1,3 @@
-# fluxchain
-/**
- *Submitted for verification at Etherscan.io on 2020-07-08
-*/
-
 pragma solidity ^0.4.24;
 
 library SafeMath {
@@ -186,7 +181,7 @@ contract ERC20 is IERC20, Ownable {
   if (codeLength > 0) {
     ERC223ReceivingContract receiver = ERC223ReceivingContract(to);
     receiver.tokenFallback(from, value, empty);
-    }/
+    }
     return true;
   }
   function increaseAllowance(address spender, uint256 addedValue) public returns (bool) {
